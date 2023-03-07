@@ -12,4 +12,6 @@ before_script:
 script:
   - python -m pytest -v
 after_success:
-  - coveralls --service=github
+  - coverage report -m
+    coveralls --service=github
+    
