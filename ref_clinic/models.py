@@ -4,7 +4,7 @@ from ref_clinic.extentions import db
 
 # Create a models
 class Record(db.Model):
-    """ adding record model """
+    """ creating record model """
     id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.String(1000))
     first_name = db.Column(db.String(100))
