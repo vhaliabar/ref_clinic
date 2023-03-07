@@ -13,5 +13,5 @@ script:
   - python -m pytest -v
 after_success:
   - coverage report -m
-    coveralls --service=github
+    coveralls -v
     
