@@ -1,0 +1,16 @@
+
+# Config file for automatic testing at travis-ci.org
+sudo: false  # http://docs.travis-ci.com/user/migrating-from-legacy/
+language: python
+python:
+  - 3.6
+install: pip install -r requirements.txt
+before_script:
+  - export FLASK_APP=ref_clinic
+  - export SQLALCHEMY_SILENCE_UBER_WARNING=1
+  - export SQLALCHEMY_TRACK_MODIFICATIONS=False
+
+script:
+  - python -m pytest -v
+after_success:
+  - coveralls -v

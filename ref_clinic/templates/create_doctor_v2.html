@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<br><br>
+<p>Add a new doctor:</p>
+<br>
+<hr>
+<br>
+<form method='POST' class="row g-3">
+  {{ form.csrf_token }}
+  <div class="col-md-4">{{form.name.label(class='form-label')}}
+  {{form.name(class='form-control', placeholder='please enter full name')}}</div>
+
+  <div class="col-md-4">{{form.email.label(class='form-label')}}
+  {{form.email(class='form-control')}}</div>
+  <div class="col-md-4">{{form.years_xp.label(class='form-label')}}
+  {{form.years_xp(class='form-control')}}</div>
+  {{form.specialization.label(class='form-label')}}
+  {{form.specialization(class='form-control', placeholder='ex. oncologist')}}
+  {{form.submit(class='btn btn-secondary')}}
+</form>
+{% endblock body %}
+
+
+<!--
+  <form method='POST' class="row g-3">
+  <br/>
+    <div class="col-md-4">
+      <label for="validationDefault02" class="form-label">Name</label>
+      <input type="text" class="form-control" id="validationDefault02" name='name'>
+    </div>
+    <div class="col-md-4">
+      <label for="validationDefaultUsername" class="form-label">Email</label>
+      <div class="input-group">
+        <span class="input-group-text" id="inputGroupPrepend2">@</span>
+        <input type="text" class="form-control" id="validationDefaultUsername"  aria-describedby="inputGroupPrepend2" required name='email'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <label for="validationDefault03" class="form-label">Experience</label>
+      <input type="text" class="form-control" id="validationDefault03" required name='years_xp'>
+    </div>
+     <div class="col-md-6">
+      <label for="validationDefault05" class="form-label">Specialization</label>
+      <input type="text" class="form-control" id="validationDefault05" required name='specialization'>
+    </div>
+    <div class="col-12">
+        <br>
+      <button method='POST' class="btn btn-secondary" type="submit">Submit form</button>
+    </div>
+  </form>-->
+

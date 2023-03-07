@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<br>
+<h2>Welcome to our Modern Clinic</h2><br>
+
+<img src="{{ url_for('static', filename='images/modern-hospital.jpg') }}">
+
+<a href="{{ url_for('create_doctor') }}" class="btn btn-primary btn-lg active" role="button">create doctor</a>
+
+{% endblock body %}

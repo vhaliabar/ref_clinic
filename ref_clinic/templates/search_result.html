@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<br><br>
+<h3 class='text-center'>this is what you were searchng for...</h3>
+<br><br>
+<p>{{form.searched.data}}</p>
+
+<hr>
+{% for doc in doctors %}
+<p>{{ doc.name}} | {{ doc.email}} | {{ doc.years_xp}} | {{ doc.specialization}}</p>
+
+{% endfor %}
+
+{% endblock body %}
+
+
