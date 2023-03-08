@@ -8,6 +8,7 @@ before_script:
   - export FLASK_APP=ref_clinic
   - export SQLALCHEMY_SILENCE_UBER_WARNING=1
   - export SQLALCHEMY_TRACK_MODIFICATIONS=False
+  - export NODE_COVERALLS_DEBUG=1
 
 script:
   - python -m pytest -v
