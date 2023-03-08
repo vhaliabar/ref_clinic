@@ -139,10 +139,10 @@ def create_record():
 @main.route('/records_list', methods=['GET','POST'])
 def records_list():
     records_list = Record.query.all()
-    doctors_list= Doctor.query.all()
+    #doctors_list= Doctor.query.all()
     #current_doctor_choice=request.form.get('doctor_id')
     #doctor_name = db.session.query(Doctor).filter(Doctor.name == current_doctor_choice).first().name
-    return render_template('appointments_list.html', records_list=records_list, doctors_list=doctors_list)
+    return render_template('appointments_list.html', records_list=records_list)
 
 @main.route('/record_update/<int:id>', methods = ['GET', 'POST'])
 def record_update(id):
