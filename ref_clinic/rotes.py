@@ -26,6 +26,7 @@ def search():
         doctors=Doctor.query.filter(Doctor.name.like('%'+searched+'%'))
         doctors=doctors.order_by(Doctor.years_xp).all()
         if not doctors:
+            flash('Please try another search pattern', category='error')
             return render_template('empty_results.html')
         else:
             return render_template('search_result.html',
