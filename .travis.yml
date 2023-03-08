@@ -13,6 +13,6 @@ before_script:
 script:
   - python -m pytest -v
 after_success:
-  - coverage report -v
+  - coverage run -m pytest tests
   - coveralls -v
     

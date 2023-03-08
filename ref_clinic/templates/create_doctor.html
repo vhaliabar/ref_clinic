@@ -2,11 +2,29 @@
 
 {% block body %}
 <br><br>
-<p>Add doctor:</p>
+<p>Add a new doctor:</p>
 <br>
 <hr>
 <br>
 <form method='POST' class="row g-3">
+  {{ form.csrf_token }}
+  <div class="col-md-4">{{form.name.label(class='form-label')}}
+  {{form.name(class='form-control', placeholder='please enter full name')}}</div>
+
+  <div class="col-md-4">{{form.email.label(class='form-label')}}
+  {{form.email(class='form-control', placeholder='example@example.com')}}</div>
+  <div class="col-md-4">{{form.years_xp.label(class='form-label')}}
+  {{form.years_xp(class='form-control', placeholder='number from 1 to 49')}}</div>
+  {{form.specialization.label(class='form-label')}}
+  {{form.specialization(class='form-control', placeholder='ex. oncologist')}}
+  {{form.submit(class='btn btn-secondary')}}
+</form>
+{% endblock body %}
+
+
+<!--
+  <form method='POST' class="row g-3">
+  <br/>
     <div class="col-md-4">
       <label for="validationDefault02" class="form-label">Name</label>
       <input type="text" class="form-control" id="validationDefault02" name='name'>
@@ -30,5 +48,5 @@
         <br>
       <button method='POST' class="btn btn-secondary" type="submit">Submit form</button>
     </div>
-  </form>
-{% endblock body %}
+  </form>-->
+

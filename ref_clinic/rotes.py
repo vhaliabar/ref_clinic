@@ -5,21 +5,25 @@ from sqlalchemy.sql import func
 from .forms import DoctorForm, SearchForm
 main = Blueprint("", __name__)
 
+
 @main.route('/')
 def welcome():
     """ simply returns rendered index file """
     return render_template('index.html')
 
+
 @main.context_processor
 def navbar():
+    """ function allows to add veriables to the all list of html files in templates/ """
     form=SearchForm()
     return dict(form=form)
+
 
 @main.route('/search', methods=['POST'])
 def search():
     form=SearchForm()
     searched = form.searched.data
-    if searched is "":
+    if searched == "":
         flash('Please try another search pattern', category='error')
         return render_template('empty_results.html')
     else:
@@ -36,8 +40,8 @@ def search():
 
 @main.route('/create_doctor', methods=['GET', 'POST'])
 def create_doctor():
+    """ create a new doctor """
     form = DoctorForm()
-    searched_doctors = Doctor.query.filter(Doctor.name)
     if request.method == 'POST':
         name=request.form['name']
         email=request.form['email']
@@ -51,31 +55,7 @@ def create_doctor():
         db.session.commit()
         flash(f'{name} has been added successfully!', category='success')
         return redirect(url_for('doctor_list'))
-    return render_template("/create_doctor_v2.html", form=form)
-
-
-
-
-
-
-# @main.route('/create_doctor', methods=['GET','POST'])
-# def create_doctor():
-#     if request.method == 'POST':
-#         name = request.form.get('name')
-#         email = request.form.get('email')
-#         specialization = request.form.get('specialization')
-#         years_xp = request.form.get('years_xp')
-        
-#         new_doctor = Doctor(name=name,
-#                             email=email,
-#                             specialization=specialization,
-#                             years_xp=years_xp)
-#         db.session.add(new_doctor)
-#         db.session.commit()
-#         flash(f'{name} has been added successfully!', category='success')
-#         return redirect(url_for('doctor_list'))
-#     else:
-#         return render_template("/create_doctor.html")
+    return render_template("/create_doctor.html", form=form)
 
 
 @main.route('/doctor_list', methods=['GET','POST'])
