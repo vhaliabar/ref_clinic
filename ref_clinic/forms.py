@@ -20,3 +20,7 @@ class DoctorForm(FlaskForm):
                                 validators=[DataRequired()])
     submit = SubmitField('Add doctor')
     
+
+class RecordForm(FlaskForm):
+    """ form to be user in create_record func """
+    email= EmailField('Email', validators=[Email()])
