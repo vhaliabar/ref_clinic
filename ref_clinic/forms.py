@@ -14,4 +14,3 @@ class DoctorForm(FlaskForm):
     name= StringField('Name')
     specialization= StringField('Doctor specialization', validators=[DataRequired()])
     submit = SubmitField('Add doctor')
-    
