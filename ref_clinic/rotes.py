@@ -14,14 +14,13 @@ def welcome():
 
 @main.context_processor
 def navbar():
-    """ function adds veriables to the all html files in templates/ """
+    """ function allows to add veriables to the all list of html files in templates/ """
     form=SearchForm()
-    return {"form": form}
+    return dict(form=form)
 
 
 @main.route('/search', methods=['POST'])
 def search():
-    """ search for the doctor using search form """
     form=SearchForm()
     searched = form.searched.data
     if searched == "":
@@ -33,9 +32,10 @@ def search():
         if not doctors:
             flash('Please try another search pattern', category='error')
             return render_template('empty_results.html')
-        return render_template('search_result.html',
-                        form=form,
-                        doctors=doctors)
+        else:
+            return render_template('search_result.html',
+                            form=form,
+                            doctors=doctors)
 
 
 @main.route('/create_doctor', methods=['GET', 'POST'])
@@ -60,14 +60,12 @@ def create_doctor():
 
 @main.route('/doctor_list', methods=['GET','POST'])
 def doctor_list():
-    """ returns the list off all doc's in DB """
     doctors_list = Doctor.query.all()
     return render_template('doctor_list.html', doctors_list=doctors_list)
 
 
 @main.route('/delete_doctor/<int:id>', methods=['GET','POST'])
-def delete_doctor(id:int):
-    """ deletes specific doctor """
+def delete_doctor(id):
     doctor_to_delete = Doctor.query.get_or_404(id)
     try:
         db.session.delete(doctor_to_delete)
@@ -80,8 +78,7 @@ def delete_doctor(id:int):
 
 
 @main.route('/update/<int:id>', methods = ['GET', 'POST'])
-def update_doctor(id:int):
-    """ update doctor instance by ID """
+def update_doctor(id):
     doctor_to_update = Doctor.query.get_or_404(id)
     if request.method == 'POST':
         doctor_to_update.name=request.form.get('name')
@@ -96,7 +93,6 @@ def update_doctor(id:int):
 
 @main.route('/create_record', methods=['GET','POST'])
 def create_record():
-    """ make an appointment with a doctor """
     option_list=[]
     results = db.session.query(Doctor.name).all()
     for result in results:
@@ -120,16 +116,16 @@ def create_record():
     else:
         return render_template("/create_appointment.html", option_list=option_list)
  
-
 @main.route('/records_list', methods=['GET','POST'])
 def records_list():
-    """ show all appointments as a list """
     records_list = Record.query.all()
+    #doctors_list= Doctor.query.all()
+    #current_doctor_choice=request.form.get('doctor_id')
+    #doctor_name = db.session.query(Doctor).filter(Doctor.name == current_doctor_choice).first().name
     return render_template('appointments_list.html', records_list=records_list)
 
 @main.route('/record_update/<int:id>', methods = ['GET', 'POST'])
 def record_update(id):
-    """ updates specific item in database by its id """
     option_list=[]
     results = db.session.query(Doctor.name).all()
     for result in results:
@@ -157,7 +153,6 @@ def record_update(id):
 
 @main.route('/delete_record/<int:id>', methods=['GET','POST'])
 def delete_record(id):
-    """ function deletes record by its id """
     record_to_delete = Record.query.get_or_404(id)
     try:
         db.session.delete(record_to_delete)
