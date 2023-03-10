@@ -6,6 +6,8 @@ from .forms import DoctorForm, SearchForm
 main = Blueprint("", __name__)
 
 
+# pylint: disable=unused-import
+# pylint: ignored-classes=scoped_session
 @main.route('/')
 def welcome():
     """ simply returns rendered index file """

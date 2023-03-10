@@ -21,6 +21,8 @@ def create_app(database_url='sqlite:///med_ua.sqlite3'):
 
 from ref_clinic import rotes
 #from ref_clinic.rest_api import api_rotes
+from ref_clinic.rest_api import api_rotes_2
+
 
 @main.cli.command('db_create')
 def db_create():

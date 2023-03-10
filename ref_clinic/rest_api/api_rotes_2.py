@@ -6,25 +6,30 @@ from ref_clinic import db
 
 ma=Marshmallow(main)
 
-class DoctorSchema(ma.SQLAlchemyAutoSchema):
+
+class DoctorSchema(ma.Schema):
     class Meta:
-        model=Doctor
-    id=ma.auto_field()
-    email=ma.auto_field()
-    years_xp=ma.auto_field()
-    name=ma.auto_field()
-    specialization=ma.auto_field()
-    records=ma.auto_field()
-        
-class RecordSchema(ma.SQLAlchemyAutoSchema):
+        # Fields to expose
+        fields = ("id", "email","years_xp","name","specialization","records","_links")
+    # Smart hyperlinking
+    _links = ma.Hyperlinks(
+        {
+            "self": ma.URLFor("update_doctor", values=dict(id="<id>")),
+            "collection": ma.URLFor("doctor_list"),
+        }
+    )
+
+class RecordSchema(ma.Schema):
     class Meta:
-        model=Record
-    id=ma.auto_field()
-    data=ma.auto_field()
-    first_name=ma.auto_field()
-    last_name=ma.auto_field()
-    date=ma.auto_field()
-    doctor_id=ma.auto_field()
+        # Fields to expose
+        fields = ("id", "data","last_name","first_name","date","doctor_id","_links")
+    # Smart hyperlinking
+    _links = ma.Hyperlinks(
+        {
+            "self": ma.URLFor("record_update", values=dict(id="<id>")),
+            "collection": ma.URLFor("records_list"),
+        }
+    )
 
 doctor_schema=DoctorSchema()
 doctors_schema=DoctorSchema(many=True)
@@ -36,6 +41,7 @@ def first():
     """ first try """
     return jsonify(message='You are good to make the same, Danylo!')
 
+
 @main.route('/api/doctor/<int:doctor_id>', methods=['GET'])
 def doctor(doctor_id:int):
     """ first try """
@@ -46,12 +52,12 @@ def doctor(doctor_id:int):
         return jsonify(message='This doctor doesn\'t exist'), 404
 
 
-@main.route('/api/doctors', methods=['GET'])
+@main.route('/api/doctors')
 def doctors():
     """ first try """
     all_doctors=Doctor.query.all()
-    result = doctors_schema.dump(all_doctors)
-    return jsonify(result)
+    print(all_doctors)
+    return jsonify(doctors_schema.dump(all_doctors))
 
 
 @main.route('/api/add_doctor', methods=['POST'])
@@ -71,4 +77,19 @@ def add_doctor():
         db.session.add(new_doc)
         db.session.commit()
         return jsonify(message= f'A Doctor \'{name}\' created successfully!'),201
-    
+
+
+@main.route('/api/records')
+def records():
+    """ first try """
+    all_records=Record.query.all()
+    return jsonify(records_schema.dump(all_records))
+
+@main.route('/api/record/<int:record_id>', methods=['GET'])
+def record(record_id:int):
+    """ first try """
+    my_record=Record.query.filter_by(id=record_id).first()
+    if my_record:
+            return jsonify(record_schema.dump(my_record))
+    else:
+        return jsonify(message='This recond doesn\'t exist'), 404
