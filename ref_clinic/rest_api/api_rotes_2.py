@@ -10,7 +10,7 @@ ma=Marshmallow(main)
 class DoctorSchema(ma.Schema):
     class Meta:
         # Fields to expose
-        fields = ("id", "email","years_xp","name","specialization","records","_links")
+        fields = ("id", "email","years_xp","name","specialization","_links")
     # Smart hyperlinking
     _links = ma.Hyperlinks(
         {
@@ -46,6 +46,7 @@ def first():
 def doctor(doctor_id:int):
     """ first try """
     my_doctor=Doctor.query.filter_by(id=doctor_id).first()
+    print(type(my_doctor))
     if my_doctor:
             return jsonify(doctor_schema.dump(my_doctor))
     else:
