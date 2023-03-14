@@ -7,13 +7,18 @@ from .rotes import main
 #pylint: disable=wrong-import-order
 #pylint: disable=wrong-import-position
 
-def create_app(database_url='sqlite:///med_ua.sqlite3'):
+def create_app(database_url='mysql+pymysql://root:password123@localhost/ref_clinic'):
     """ creating function that will construct the app """
     app = Flask(__name__)
 
     # Add database
     app.config['SQLALCHEMY_DATABASE_URI']=database_url
     app.config['SECRET_KEY']= 'very secret key'
+    
+    #MySQL config
+    #database_url='mysql+pymysql://root:password123@localhost/ref_clinic'
+    #SQLite config
+    #'sqlite:///med_ua.sqlite3'
 
     # Initialize the database
     db.init_app(app)

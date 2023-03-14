@@ -1,4 +1,5 @@
-**__pycache__/
+__pycache__/
 .gitignore
 .pytest_cache/
 *.sqlite3
+instance/
