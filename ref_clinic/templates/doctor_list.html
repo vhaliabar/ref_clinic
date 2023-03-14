@@ -3,9 +3,9 @@
 {% block body %}
 <br><br>
 <h3 class='text-center'>Please find doctor's list below</h3>
-<br><br>
 
-
+<h5 class='text-center'>( <b>{{doc_count}}</b> doctors in a clinic)</h5>
+<br>
 <div class="d-flex flex-row-reverse">
     <div class="p-2">
         <a href="{{ url_for('create_doctor') }}" class="btn btn-success btn-sm active" role="button">create doctor</a>

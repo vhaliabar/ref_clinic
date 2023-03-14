@@ -13,8 +13,10 @@ class Record(db.Model):
     last_name = Column(String(100))
     date = Column(DateTime(timezone=True), default=func.now())
     doctor_id = Column(Integer, ForeignKey('doctor.id'))
+    
     def __repr__(self):
         return f"{self.last_name} record"
+    
     def total_records(self):
         """ total records """
         return self.id.count()
@@ -28,8 +30,10 @@ class Doctor(db.Model):
     name = Column(String(100))
     specialization = Column(String(100))
     records = relationship('Record', backref='recs')
+    
     def __repr__(self):
-        return f"Doctor {self.name},({self.specialization})"
+        return f"Doctor {self.name},({self.specialization})"    
+    
     def total_doctors(self):
         """ total doctors """
         return self.id.count()

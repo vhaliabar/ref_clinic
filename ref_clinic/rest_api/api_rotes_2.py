@@ -14,7 +14,7 @@ class DoctorSchema(ma.Schema):
     # Smart hyperlinking
     _links = ma.Hyperlinks(
         {
-            "self": ma.URLFor("update_doctor", values=dict(id="<id>")),
+            "self": ma.URLFor("update_doctor", values=dict(doc_id="<id>")),
             "collection": ma.URLFor("doctor_list"),
         }
     )
@@ -26,7 +26,7 @@ class RecordSchema(ma.Schema):
     # Smart hyperlinking
     _links = ma.Hyperlinks(
         {
-            "self": ma.URLFor("record_update", values=dict(id="<id>")),
+            "self": ma.URLFor("record_update", values=dict(rec_id="<id>")),
             "collection": ma.URLFor("records_list"),
         }
     )
@@ -55,7 +55,7 @@ def doctor(doctor_id:int):
 
 @main.route('/api/doctors')
 def doctors():
-    """ first try """
+    """ shows all doctors in json format """
     all_doctors=Doctor.query.all()
     print(all_doctors)
     return jsonify(doctors_schema.dump(all_doctors))

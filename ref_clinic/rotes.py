@@ -63,7 +63,8 @@ def create_doctor():
 def doctor_list():
     """ returns the list off all doc's in DB """
     doctors_list = Doctor.query.all()
-    return render_template('doctor_list.html', doctors_list=doctors_list)
+    doc_count = Doctor.query.count()
+    return render_template('doctor_list.html', doctors_list=doctors_list, doc_count=doc_count)
 
 
 @main.route('/delete_doctor/<int:doc_id>', methods=['GET','POST'])
