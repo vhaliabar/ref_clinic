@@ -26,11 +26,12 @@ This is  **Flask-based** application, created for panients and hospital team to 
   ```
   > pip install -r requirements.txt
   ```
-5. Set up the database:
+5. Set up connection to the database:
 
-  **First of all, you need to install MySQL server.
-  <br> Next, configure MySQL connection by runing create_mysql.py file**
-  ```
+  Before this, you need to install [MySQL server](https://dev.mysql.com/downloads/mysql/)..
+  <br>
+  Next, configure MySQL connection by runing **create_mysql.py** file
+  ```python
  >python ref_clinic/migrations/create_mysql.py
   ```
   **Secondly, create environmental veriable to support Flask app:**
@@ -43,10 +44,25 @@ This is  **Flask-based** application, created for panients and hospital team to 
   ```
   You can specify port # using -p flag, as well as app name using --app <app name><br>
   <br>
-  You can also run Python WSGI HTTP Server Gunicorn, for this run the following command:
+7. Create DB tables.<br>
+
+  After esteblish connection of your app to MySQL DB(**step 5 of the instruction**), you have to create tables.<br>
+  Follow the next commands in command line:
+   type `> python` to enter the python enterpriter,<br>then import db object and constructor func: `from ref_clinic import db, create_app`.<br>
+   Import two models: Doctor and Record <br>`> from ref_clinic.models import Doctor, Record`
+   <br>
+   Follow the next steps:
+   ```python
+   > create_app()
+   > db.create_all()
+   ```
+### Now you can test object creation using website UI!<br><br>
+
+  You can also run Python WSGI HTTP Server Gunicorn, for this run the following command in Linux environment:
   ```
-  > gunicorn ref_clinic:main
+  > gunicorn "ref_clinic:create_app()"
   ```
+---
   
 ## Usage
 To use the application, open a web browser and navigate to http://localhost:5000. Most effects of using app you can obtain, use the following links:
